@@ -1,0 +1,171 @@
+/* Full-page background with gradient */
+.full-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #8adfd6, #2d5ce2); /* Professional Gradient */
+  padding: 20px;
+}
+
+/* Main container for map & form */
+.garage-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 100%x;
+  background: rgba(255, 255, 255, 0.15); /* Light Glass Effect */
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 100vh; /* Ensures both sections are equal in height */
+}
+
+/* Map container styling */
+.map-container {
+  width: 50%;
+  height: 100%; /* Matches form-container height */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Form container */
+.form-container {
+  width: 50%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers form content */
+}
+
+/* Form Header */
+.form-title {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 25px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Bold & Modern Labels */
+.form-label {
+  font-weight: 600;
+  color: white;
+  font-size: 16px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Form Fields */
+.form-field {
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 12px;
+  width: 100%;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Placeholder & Input Text */
+.form-field::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-field:focus {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid #fff;
+  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Error Messages */
+.error {
+  color: #ff4b2b;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* Select dropdown (react-select) */
+.react-select-container .react-select__control {
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Styling react-select when hovering */
+.react-select-container .react-select__control:hover {
+  border: 1px solid #fff;
+}
+
+/* Custom Submit Button */
+.submit-btn {
+  background-color: #ff4b2b;
+  color: white;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: none;
+}
+
+.submit-btn:hover {
+  background-color: #ff6b4b;
+  transform: scale(1.05);
+}
+
+/* Upload Container */
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Image Preview */
+.image-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(204, 50, 88, 0.2);
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .garage-container {
+      flex-direction: column;
+      height: auto;
+      padding: 15px;
+  }
+
+  .map-container,
+  .form-container {
+      width: 100%;
+      height: 400px;
+  }
+}

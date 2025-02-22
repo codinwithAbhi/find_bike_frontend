@@ -1,0 +1,33 @@
+/* Background Gradient */
+.gradient-background {
+    background: linear-gradient(to right,#ff512f, #dd2476);
+}
+
+/* Card Styling */
+.text-black {
+    color: #333 !important;
+}
+
+/* Custom Button */
+.gradient-btn {
+    background: linear-gradient(to right, #ff512f, #dd2476);
+    border: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.gradient-btn:hover {
+    background: linear-gradient(to right, #dd2476, #ff512f);
+    transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .gradient-background {
+        padding: 20px;
+    }
+
+    .rounded {
+        max-height: 300px;
+    }
+}

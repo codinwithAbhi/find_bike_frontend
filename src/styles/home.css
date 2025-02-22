@@ -1,0 +1,37 @@
+/* Ensure the root container covers the entire screen */
+
+/* Main Layout - Sidebar + Map */
+.home-container {
+  display: flex;              /* Side-by-side layout */
+  height: 100vh;              /* Full viewport height */
+  width: 100vw;               /* Full viewport width */
+  overflow: hidden;           /* Hide extra content */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Leaflet Map Fullscreen */
+.leaflet-map {
+  height: 100% !important;    /* Force full height */
+  width: 100% !important;     /* Full width */
+  z-index: 1;
+}
+
+
+/* Sidebar Open */
+.sidebar-open .sidebar {
+  width: 350px;               /* Sidebar expanded */
+}
+
+/* Sidebar Closed */
+.sidebar-closed .sidebar {
+  width: 50px;                /* Collapsed sidebar */
+}
+
+/* Map Container */
+.map-container {
+  flex: 1;                    /* Take up remaining space */
+  height: 100%;               /* Full height */
+  display: flex;              /* Ensure children (Leaflet) stretch */
+  background-color: #f0f0f0;  /* Just for better contrast */
+  position: relative;         /* Needed for absolute positioning if needed */
+}

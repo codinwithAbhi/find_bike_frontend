@@ -1,0 +1,68 @@
+/* Sidebar Container */
+.sidebar {
+  background: rgb(200 109 18 / 20%);
+  height: 100vh;
+  overflow-y: visible;
+  border-right: 1px solid #ccc;
+  transition: width 0.3s ease-in-out;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 300px; /* Default width when open */
+}
+
+/* Collapsed Sidebar */
+.sidebar.closed {
+  width: 80px; /* Adjust this as needed */
+  overflow: hidden;
+}
+
+/* Hide content when sidebar is closed */
+.sidebar.closed .sidebar-content {
+  display: none;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  position: absolute;
+  top: 15px;
+  right: -20px;
+  background: rgb(72, 118, 234);
+  border-radius: 50%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 1000;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sidebar Footer - Always Visible */
+.sidebar-footer {
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  right: 10px;
+  padding: 10px;
+  background: white;
+  border-top: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Show only the logout button when collapsed */
+.sidebar.closed .sidebar-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
