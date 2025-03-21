@@ -92,7 +92,7 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
           {selectedGarage ? (
             <MDBCard className="garage-card shadow-4">
               <MDBCardImage
-                src={`http://localhost:10113${selectedGarage.image}`}
+                src={`https://find-bike-backend.onrender.com${selectedGarage.image}`}
                 position="top"
                 alt={selectedGarage.garageName}
                 className="garage-image"
