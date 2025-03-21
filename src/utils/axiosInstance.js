@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:10113/api',
+  baseURL: 'https://find-bike-backend.onrender.com/api',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
