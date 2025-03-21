@@ -26,6 +26,8 @@
   "scripts": {
     "start:user": "env-cmd -f .env.user react-scripts start",
     "start:garageuser": "env-cmd -f .env.garageuser react-scripts start",
+    "user:build": "env-cmd -f .env.user react-scripts build",
+    "garageuser:build": "env-cmd -f .env.garageuser react-scripts build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
