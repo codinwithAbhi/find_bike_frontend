@@ -5,7 +5,7 @@ import {
   MDBBtn, MDBIcon, MDBBadge, MDBModal, MDBModalBody, MDBModalHeader,
   MDBModalFooter, MDBInput, MDBTextArea, MDBModalDialog, MDBModalContent
 } from "mdb-react-ui-kit";
-import Select from "react-select"; // ✅ Imported react-select
+import Select from "react-select";
 import "../styles/sidebar.css";
 import { useNavigate } from "react-router";
 import { DataContext } from "./contexts";
@@ -40,12 +40,13 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
     if (!auth) {
       navigate(`${basePath}/login`);
     }
-  }, [auth]);
+  }, [auth, basePath, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem(tokenKey);
     setAuth(false);
   };
+  
   const handleServiceRequest = async () => {
     if (!selectedGarage || !formData.serviceType || !formData.contact) {
       toast.error("Please fill all required fields!");
@@ -78,6 +79,29 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
 
   return (
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
+      {/* Mobile Toggle Buttons */}
+      {isOpen && (
+        <MDBBtn 
+          floating 
+          className="mobile-close-btn" 
+          onClick={toggleSidebar}
+          aria-label="Close sidebar"
+        >
+          <MDBIcon fas icon="times" />
+        </MDBBtn>
+      )}
+      
+      {!isOpen && (
+        <MDBBtn 
+          floating 
+          className="mobile-open-btn" 
+          onClick={toggleSidebar}
+          aria-label="Open sidebar"
+        >
+          <MDBIcon fas icon="bars" />
+        </MDBBtn>
+      )}
+      
       {/* Sidebar Header */}
       <div className="sidebar-header">
         {isOpen && <h4>Nearby Locations</h4>}
@@ -110,9 +134,11 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
 
                 {/* Contact Number */}
                 <MDBCardText className="garage-vehicle">
-                  <MDBBadge color="info" className="p-2">
-                    📞{selectedGarage.contact}
-                  </MDBBadge>
+                  <a href={`tel:${selectedGarage.contact}`} style={{ textDecoration: 'none' }}>
+                    <MDBBadge color="info" className="p-2">
+                      📞{selectedGarage.contact}
+                    </MDBBadge>
+                  </a>
                 </MDBCardText>
 
                 {/* Vehicle Type */}
@@ -131,13 +157,13 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
                   ))}
                 </MDBCardText>
 
-                {/* 🚀 "Request Service" Button */}
+                {/* "Request Service" Button */}
                 <MDBBtn color="primary" className="w-100 mt-3 fw-bold" onClick={() => setModalOpen(true)}>
                   <MDBIcon fas icon="tools" className="me-2" /> Request Service
                 </MDBBtn>
 
                 {/* Close Button */}
-                <MDBBtn color="danger" className="w-100 mt-2 fw-bold" onClick={closeGarage}>
+                <MDBBtn color="danger" className="w-100 mt-2 fw-bold" onClick={()=>{closeGarage(); toggleSidebar();}}>
                   <MDBIcon fas icon="times-circle" className="me-2" /> Close
                 </MDBBtn>
               </MDBCardBody>
@@ -148,19 +174,20 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
         </div>
       )}
 
-      {/* ✅ Logout Button - Always Visible */}
+      {/* Logout Button - Always Visible */}
       <div className="sidebar-footer">
         <MDBBtn color="dark" className="w-100 fw-bold" onClick={handleLogout}>
           <MDBIcon fas icon="sign-out-alt" className="me-2" />
-          {isOpen && "Log Out"} {/* Hide text when sidebar is collapsed */}
+          {isOpen && "Log Out"}
         </MDBBtn>
       </div>
-       {/* ✅ Service Request Modal */}
-       <MDBModal open={modalOpen} onClose={() => setModalOpen(false)} tabIndex="-1">
-      <MDBModalDialog>
-      <MDBModalContent>
-        <MDBModalHeader>Request Service</MDBModalHeader>
-        <MDBModalBody>
+      
+      {/* Service Request Modal */}
+      <MDBModal open={modalOpen} onClose={() => setModalOpen(false)} tabIndex="-1">
+        <MDBModalDialog>
+          <MDBModalContent>
+            <MDBModalHeader>Request Service</MDBModalHeader>
+            <MDBModalBody>
               <MDBInput
                 label="Vehicle Type"
                 type="text"
@@ -169,41 +196,39 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
                 className="mt-3"
               />
 
-          <Select
-            options={selectedGarage?.serviceType?.map(service => ({
-              value: service, label: service.replace("_", " ")
-            }))}
-            value={formData.serviceType}
-            onChange={val => setFormData({ ...formData, serviceType: val })}
-            placeholder="Choose Service..."
-            className="mt-3"
-          />
+              <Select
+                options={selectedGarage?.serviceType?.map(service => ({
+                  value: service, label: service.replace("_", " ")
+                }))}
+                value={formData.serviceType}
+                onChange={val => setFormData({ ...formData, serviceType: val })}
+                placeholder="Choose Service..."
+                className="mt-3"
+              />
 
-          {/* Contact Number */}
-          <MDBInput
-            label="Your Contact Number"
-            type="tel"
-            value={formData.contact}
-            onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-            className="mt-3"
-          />
+              {/* Contact Number */}
+              <MDBInput
+                label="Your Contact Number"
+                type="tel"
+                value={formData.contact}
+                onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+                className="mt-3"
+              />
 
-         
-
-          {/* Message */}
-          <MDBTextArea
-            label="Additional Message"
-            rows={3}
-            value={formData.message}
-            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            className="mt-3"
-          />
-        </MDBModalBody>
-        <MDBModalFooter>
-          <MDBBtn color="secondary" onClick={() => setModalOpen(false)}>Cancel</MDBBtn>
-          <MDBBtn color="success" onClick={handleServiceRequest}>Submit Request</MDBBtn>
-        </MDBModalFooter>
-        </MDBModalContent>
+              {/* Message */}
+              <MDBTextArea
+                label="Additional Message"
+                rows={3}
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="mt-3"
+              />
+            </MDBModalBody>
+            <MDBModalFooter>
+              <MDBBtn color="secondary" onClick={() => setModalOpen(false)}>Cancel</MDBBtn>
+              <MDBBtn color="success" onClick={handleServiceRequest}>Submit Request</MDBBtn>
+            </MDBModalFooter>
+          </MDBModalContent>
         </MDBModalDialog>
       </MDBModal>
     </div>

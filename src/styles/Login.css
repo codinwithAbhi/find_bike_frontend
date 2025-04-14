@@ -1,28 +1,250 @@
+/* Login.css */
+
+/* Regular User Styles */
 .gradient-custom-2 {
-    /* fallback for old browsers */
-    background: #fccb90;
+  /* fallback for old browsers */
+  background: #fccb90;
   
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
   
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.gradient-custom-2:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.gradient-custom-3 {
+  background: url('../assets/fotor-ai-20250122232141_1.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  height: 100%;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+/* Add overlay to make text more readable over image background */
+.gradient-custom-3::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.gradient-custom-3 > div {
+  position: relative;
+  z-index: 2;
+}
+
+.user-benefits-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.user-benefits-list li {
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.user-benefits-list i {
+  color: #f8a33c;
+}
+
+/* Login-specific Input Styling for regular users */
+.login-form-col .form-outline .form-control {
+  color: #333 !important;
+  background-color: #fff !important;
+  border: 1px solid #ced4da !important;
+  opacity: 1 !important;
+}
+
+/* Fix for label visibility */
+.login-form-col .form-outline .form-label {
+  color: #495057 !important;
+  opacity: 1 !important;
+  background-color: transparent !important;
+}
+
+/* Specifically target active and floating states */
+.login-form-col .form-outline .form-control:focus ~ .form-label,
+.login-form-col .form-outline .form-control.active ~ .form-label {
+  color: #ee7724 !important;
+  transform: translateY(-1rem) translateY(0.1rem) scale(0.8) !important;
+  background-color: white !important;
+  padding: 0 0.4rem !important;
+}
+
+/* Fix form notches */
+.login-form-col .form-outline .form-notch-leading,
+.login-form-col .form-outline .form-notch-middle,
+.login-form-col .form-outline .form-notch-trailing {
+  border-color: #ced4da !important;
+  background-color: transparent !important;
+}
+
+.login-form-col .form-outline .form-control:focus ~ .form-notch .form-notch-leading,
+.login-form-col .form-outline .form-control:focus ~ .form-notch .form-notch-middle,
+.login-form-col .form-outline .form-control:focus ~ .form-notch .form-notch-trailing {
+  border-color: #ee7724 !important;
+  border-width: 2px !important;
+}
+
+/* Garage User Styles */
+.garage-banner {
+  background: url('../assets/fotor-ai-20250122232141_1.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  height: 100%;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+/* Add overlay to make text more readable over image background */
+.garage-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(49, 71, 85, 0.7));
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.garage-banner > div {
+  position: relative;
+  z-index: 2;
+}
+
+.garage-features-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.garage-features-list li {
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.garage-features-list i {
+  color: #4CAF50;
+}
+
+.garage-gradient-btn {
+  background: #1e88e5;
+  background: linear-gradient(to right, #1e88e5, #0d47a1);
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.garage-gradient-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.garage-outline-btn {
+  color: #1e88e5;
+  border-color: #1e88e5;
+  text-transform: none;
+  transition: all 0.3s ease;
+}
+
+.garage-outline-btn:hover {
+  background-color: #1e88e5;
+  color: white;
+}
+
+/* Login-specific Input Styling for garage users*/
+.garage-login-form-col .form-outline .form-control {
+  color: #333 !important;
+  background-color: #fff !important;
+  border: 1px solid #ced4da !important;
+  opacity: 1 !important;
+}
+
+/* Fix for label visibility */
+.garage-login-form-col .form-outline .form-label {
+  color: #495057 !important;
+  opacity: 1 !important;
+  background-color: transparent !important;
+}
+
+/* Specifically target active and floating states */
+.garage-login-form-col .form-outline .form-control:focus ~ .form-label,
+.garage-login-form-col .form-outline .form-control.active ~ .form-label {
+  color: #1e88e5 !important;
+  transform: translateY(-1rem) translateY(0.1rem) scale(0.8) !important;
+  background-color: white !important;
+  padding: 0 0.4rem !important;
+}
+
+/* Fix form notches */
+.garage-login-form-col .form-outline .form-notch-leading,
+.garage-login-form-col .form-outline .form-notch-middle,
+.garage-login-form-col .form-outline .form-notch-trailing {
+  border-color: #ced4da !important;
+  background-color: transparent !important;
+}
+
+.garage-login-form-col .form-outline .form-control:focus ~ .form-notch .form-notch-leading,
+.garage-login-form-col .form-outline .form-control:focus ~ .form-notch .form-notch-middle,
+.garage-login-form-col .form-outline .form-control:focus ~ .form-notch .form-notch-trailing {
+  border-color: #1e88e5 !important;
+  border-width: 2px !important;
+}
+
+/* Responsive adjustments for both layouts */
+@media (max-width: 991.98px) {
+  .login-form-col {
+    border-radius: 0.5rem;
   }
-  .gradient-custom-3 {
-    background: url('../assets/fotor-ai-20250122232141_1.jpg') no-repeat center center;
-    background-size: cover;
-    position: relative;
-    color: white; /* Ensure text is readable */
+}
+
+@media (max-width: 767.98px) {
+  .garage-banner {
+    min-height: 200px;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-left-radius: 0;
   }
   
-  @media (min-width: 768px) {
-    .gradient-form {
-      height: 100% !important;
-    }
+  .garage-banner::before {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-left-radius: 0;
   }
-  @media (min-width: 769px) {
-    .gradient-custom-2 {
-      border-top-right-radius: .3rem;
-      border-bottom-right-radius: .3rem;
-    }
+  
+  .garage-login-form-col {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
   }
+}
+
+@media (max-width: 575.98px) {
+  .login-form-col {
+    padding: 1.5rem;
+  }
+}

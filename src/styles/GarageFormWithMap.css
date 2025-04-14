@@ -1,152 +1,226 @@
+/* Improved Responsive Garage Registration Form CSS */
+
+/* Reset for body and html to ensure full page coverage */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 /* Full-page background with gradient */
 .full-page-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(to right, #8adfd6, #2d5ce2); /* Professional Gradient */
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
   padding: 20px;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 /* Main container for map & form */
 .garage-container {
   display: flex;
-  flex-direction: row;
   width: 100%;
-  max-width: 100%x;
-  background: rgba(255, 255, 255, 0.15); /* Light Glass Effect */
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
-  padding: 20px;
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  height: 100vh; /* Ensures both sections are equal in height */
+  max-width: 1400px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  height: 85vh;
 }
 
 /* Map container styling */
 .map-container {
-  width: 50%;
-  height: 100%; /* Matches form-container height */
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  min-height: 400px;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+/* Override leaflet container to ensure full height and visibility */
+.leaflet-container {
+  width: 100%;
+  height: 100% !important;
+  z-index: 1;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 /* Form container */
 .form-container {
-  width: 50%;
+  flex: 1;
   padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centers form content */
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* Custom scrollbar */
+.form-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.form-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.form-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
 }
 
 /* Form Header */
 .form-title {
-  font-size: 26px;
-  font-weight: bold;
+  font-size: 24px;
+  font-weight: 700;
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   color: white;
-  text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-/* Bold & Modern Labels */
+/* Form Labels */
 .form-label {
-  font-weight: 600;
+  font-weight: 500;
   color: white;
   font-size: 16px;
+  margin-bottom: 8px;
   display: block;
-  margin-bottom: 5px;
 }
 
 /* Form Fields */
 .form-field {
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 12px;
   width: 100%;
-  margin-bottom: 15px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px 15px;
   color: white;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Placeholder & Input Text */
-.form-field::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  margin-bottom: 15px;
+  box-shadow: none;
+  transition: all 0.3s ease;
 }
 
 .form-field:focus {
-  background: rgba(255, 255, 255, 0.3);
-  border: 1px solid #fff;
-  box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
 }
 
-/* Error Messages */
-.error {
-  color: #ff4b2b;
-  font-size: 14px;
-  margin-top: -10px;
-  margin-bottom: 10px;
+/* Placeholder color */
+.form-field::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
-/* Select dropdown (react-select) */
-.react-select-container .react-select__control {
-  border-radius: 8px;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 5px;
-  color: white;
-  transition: all 0.3s ease-in-out;
+/* React-select styling */
+.react-select-container {
+  margin-bottom: 15px;
 }
 
-/* Styling react-select when hovering */
-.react-select-container .react-select__control:hover {
-  border: 1px solid #fff;
+.react-select__control {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  min-height: 42px !important;
+  box-shadow: none !important;
 }
 
-/* Custom Submit Button */
-.submit-btn {
-  background-color: #ff4b2b;
-  color: white;
-  padding: 14px;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
-  width: 100%;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  border: none;
+.react-select__control:hover {
+  border-color: rgba(255, 255, 255, 0.4) !important;
 }
 
-.submit-btn:hover {
-  background-color: #ff6b4b;
-  transform: scale(1.05);
+.react-select__control--is-focused {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Upload Container */
+.react-select__value-container {
+  padding: 2px 12px !important;
+}
+
+.react-select__placeholder,
+.react-select__single-value {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.react-select__menu {
+  background: rgba(30, 41, 59, 0.9) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.react-select__option {
+  background: transparent !important;
+  color: white !important;
+  cursor: pointer !important;
+}
+
+.react-select__option:hover,
+.react-select__option--is-focused {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.react-select__option--is-selected {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.react-select__multi-value {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 4px !important;
+}
+
+.react-select__multi-value__label {
+  color: white !important;
+}
+
+/* File upload styling */
 .upload-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  margin-bottom: 15px;
 }
 
-/* Image Preview */
+input[type="file"] {
+  width: 100%;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 8px 15px;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Image preview */
 .image-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
+  margin-top: 10px;
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
   overflow: hidden;
-  border: 2px solid #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(204, 50, 88, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .image-preview img {
@@ -155,17 +229,95 @@
   object-fit: cover;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .garage-container {
-      flex-direction: column;
-      height: auto;
-      padding: 15px;
-  }
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(to right, #4776E6, #8E54E9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(71, 118, 230, 0.3);
+}
 
+.submit-btn:hover {
+  background: linear-gradient(to right, #3667d6, #7b46d6);
+  box-shadow: 0 7px 15px rgba(71, 118, 230, 0.4);
+  transform: translateY(-2px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Toast container */
+.Toastify__toast-container {
+  z-index: 9999;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .garage-container {
+    flex-direction: column;
+    max-height: none;
+    height: auto;
+  }
+  
   .map-container,
   .form-container {
-      width: 100%;
-      height: 400px;
+    width: 100%;
+  }
+  
+  .map-container {
+    height: 40vh;
+    min-height: 300px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .form-container {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .full-page-container {
+    padding: 10px;
+  }
+  
+  .form-container {
+    padding: 20px;
+    max-height: 65vh;
+  }
+  
+  .map-container {
+    height: 35vh;
+    min-height: 250px;
+  }
+  
+  .form-title {
+    font-size: 20px;
+  }
+  
+  .form-label {
+    font-size: 14px;
+  }
+  
+  .form-field {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  .submit-btn {
+    padding: 10px;
+    font-size: 14px;
   }
 }

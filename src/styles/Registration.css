@@ -1,6 +1,7 @@
 /* Background Gradient */
 .gradient-background {
-    background: linear-gradient(to right,#ff512f, #dd2476);
+    background: linear-gradient(to right, #ff512f, #dd2476);
+    min-height: 100vh;
 }
 
 /* Card Styling */
@@ -13,21 +14,68 @@
     background: linear-gradient(to right, #ff512f, #dd2476);
     border: none;
     color: white;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    border-radius: 8px;
 }
 
 .gradient-btn:hover {
     background: linear-gradient(to right, #dd2476, #ff512f);
-    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Illustration styling */
+.registration-illustration {
+    max-height: 450px;
+    object-fit: contain;
+}
+
+/* Form inputs styling */
+.form-outline .form-control:focus {
+    border-color: #dd2476;
+    box-shadow: 0 0 0 0.25rem rgba(221, 36, 118, 0.25);
+}
+
+.form-outline .form-control.active {
+    border-color: #dd2476;
+}
+
+/* Icon styling */
+.text-primary {
+    color: #dd2476 !important;
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
     .gradient-background {
-        padding: 20px;
+        padding: 16px;
     }
+    
+    .illustration-col {
+        max-height: 220px;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+    
+    .registration-illustration {
+        max-height: 200px;
+    }
+}
 
-    .rounded {
-        max-height: 300px;
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .illustration-col {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .registration-illustration {
+        max-height: 350px;
+    }
+}
+
+@media (min-width: 992px) {
+    .registration-illustration {
+        max-height: 450px;
     }
 }

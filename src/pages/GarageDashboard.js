@@ -220,7 +220,7 @@ export default function GarageDashboard() {
                             {getPaginatedData(rejectedRequests, "rejected").map((req) => (
                               <MDBListGroupItem key={req._id} className="request-item">
                                 <strong>👤 Customer:</strong> {req.userId.name} <br />
-                                <strong>📞 Contact:</strong> {req?.contact} <br />
+                                <strong>📞 Contact:</strong> <a href={`tel:${req?.contact}`} style={{ textDecoration: 'none' }}>{req?.contact}</a> <br />
                                 <strong>🔧 Service:</strong> {req.serviceType} <br />
                                 <strong>📌 Message:</strong> {req.message} <br />
                                 <strong>📌 Status:</strong> <span className="status rejected">Rejected</span>
