@@ -321,3 +321,69 @@ input[type="file"]::file-selector-button:hover {
     font-size: 14px;
   }
 }
+
+
+/* Add these styles to your existing CSS file */
+
+/* Container for multiple image previews */
+.images-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Wrapper for each image preview with delete button */
+.image-preview-wrapper {
+  position: relative;
+}
+
+/* Individual image preview */
+.image-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Remove image button */
+.remove-image-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ff4757;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.remove-image-btn:hover {
+  background: #ff6b81;
+  transform: scale(1.1);
+}
+
+/* Responsive styles for image previews */
+@media (max-width: 576px) {
+  .image-preview {
+    width: 90px;
+    height: 90px;
+  }
+}

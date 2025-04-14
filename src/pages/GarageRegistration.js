@@ -50,8 +50,8 @@ const LocationMarker = ({ setLat, setLng }) => {
 const GarageFormWithMap = () => {
   const [lat, setLat] = useState(18.55758233402414);
   const [lng, setLng] = useState(73.92808318120288);
-  const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [images, setImages] = useState([]); // Changed to array for multiple images
+  const [previews, setPreviews] = useState([]); // Changed to array for multiple previews
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -137,28 +137,48 @@ const GarageFormWithMap = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle Image Selection
+  // Handle Multiple Image Selection
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (!file) {
-      toast.error("Please upload an image.");
+    const files = Array.from(e.target.files);
+    
+    if (files.length === 0) {
+      toast.error("Please upload at least one image.");
       return;
     }
-
-    if (!file.type.startsWith("image/")) {
+    
+    // Validate file types
+    const invalidFiles = files.filter(file => !file.type.startsWith("image/"));
+    if (invalidFiles.length > 0) {
       toast.error("Only image files are allowed.");
       return;
     }
+    
+    setImages(files);
+    
+    // Generate previews for all images
+    const newPreviews = [];
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        newPreviews.push(reader.result);
+        if (newPreviews.length === files.length) {
+          setPreviews([...newPreviews]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
 
-    setImage(file);
-
-    // Preview Image
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result);
-    };
-    reader.readAsDataURL(file);
+  // Remove an image from the selection
+  const removeImage = (index) => {
+    const newImages = [...images];
+    const newPreviews = [...previews];
+    
+    newImages.splice(index, 1);
+    newPreviews.splice(index, 1);
+    
+    setImages(newImages);
+    setPreviews(newPreviews);
   };
 
   // Validate Form Before Submission
@@ -172,7 +192,7 @@ const GarageFormWithMap = () => {
     if (!formData.contactNumber.trim()) newErrors.push("Contact number is required.");
     if (formData.serviceType.length === 0) newErrors.push("Select at least one service.");
     if (!formData.vehicleType) newErrors.push("Select a vehicle type.");
-    if (!image) newErrors.push("Please upload an image.");
+    if (images.length === 0) newErrors.push("Please upload at least one image.");
     
     if (newErrors.length > 0) {
       newErrors.forEach((err) => toast.error(err));
@@ -197,7 +217,11 @@ const GarageFormWithMap = () => {
     formDataToSend.append("vehicleType", formData.vehicleType.value);
     formDataToSend.append("latitude", lat);
     formDataToSend.append("longitude", lng);
-    formDataToSend.append("image", image);
+    
+    // Append multiple images
+    images.forEach(image => {
+      formDataToSend.append("images", image);
+    });
 
     try {
       const response = await api.post("/garages/garageregistration", formDataToSend, {
@@ -217,8 +241,8 @@ const GarageFormWithMap = () => {
           vehicleType: null,
         });
 
-        setImage(null);
-        setPreview(null);
+        setImages([]);
+        setPreviews([]);
         navigate("/garage/login");
       }
     } catch (error) {
@@ -346,17 +370,31 @@ const GarageFormWithMap = () => {
             />
             
             <div className="upload-container">
-              <label className="form-label">Upload Garage Image</label>
+              <label className="form-label">Upload Garage Images</label>
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
                 className="form-field"
+                multiple
               />
               
-              {preview && (
-                <div className="image-preview">
-                  <img src={preview} alt="Garage Preview" />
+              {previews.length > 0 && (
+                <div className="images-preview-container">
+                  {previews.map((preview, index) => (
+                    <div key={index} className="image-preview-wrapper">
+                      <div className="image-preview">
+                        <img src={preview} alt={`Garage Preview ${index + 1}`} />
+                      </div>
+                      <button 
+                        type="button" 
+                        className="remove-image-btn"
+                        onClick={() => removeImage(index)}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

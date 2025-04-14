@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
-  MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBCardTitle,
+  MDBCard, MDBCardBody, MDBCardText, MDBCardTitle,
   MDBBtn, MDBIcon, MDBBadge, MDBModal, MDBModalBody, MDBModalHeader,
-  MDBModalFooter, MDBInput, MDBTextArea, MDBModalDialog, MDBModalContent
+  MDBModalFooter, MDBInput, MDBTextArea, MDBModalDialog, MDBModalContent,
+  MDBCarousel, MDBCarouselItem
 } from "mdb-react-ui-kit";
 import Select from "react-select";
 import "../styles/sidebar.css";
@@ -115,12 +116,30 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
         <div className="sidebar-content">
           {selectedGarage ? (
             <MDBCard className="garage-card shadow-4">
-              <MDBCardImage
-                src={`http://localhost:10113${selectedGarage.image}`}
-                position="top"
-                alt={selectedGarage.garageName}
-                className="garage-image"
-              />
+              {/* Image Carousel - Changed from dark to light theme for better visibility */}
+              {selectedGarage.images && selectedGarage.images.length > 0 ? (
+                <MDBCarousel showControls showIndicators fade>
+                  {selectedGarage.images.map((image, index) => (
+                    <MDBCarouselItem
+                      key={index}
+                      className={index === 0 ? 'active' : ''}
+                      itemId={index + 1}
+                    >
+                      <img
+                        src={`http://localhost:10113${image}`}
+                        className="d-block w-100 garage-carousel-image"
+                        alt={`${selectedGarage.garageName} - Image ${index + 1}`}
+                      />
+                    </MDBCarouselItem>
+                  ))}
+                </MDBCarousel>
+              ) : (
+                <div className="no-image-container">
+                  <MDBIcon fas icon="image" size="4x" className="text-muted" />
+                  <p className="text-muted">No images available</p>
+                </div>
+              )}
+
               <MDBCardBody>
                 <MDBCardTitle className="garage-title text-primary fw-bold">
                   {selectedGarage.garageName}
@@ -151,7 +170,7 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
                 {/* Service Type */}
                 <MDBCardText className="garage-services">
                   {selectedGarage.serviceType.map((service, index) => (
-                    <MDBBadge key={index} color="secondary" className="me-1 p-2">
+                    <MDBBadge key={index} color="secondary" className="me-1 p-2 mb-1">
                       {service.replace("_", " ")}
                     </MDBBadge>
                   ))}
