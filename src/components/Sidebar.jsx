@@ -47,7 +47,7 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
     localStorage.removeItem(tokenKey);
     setAuth(false);
   };
-  
+
   const handleServiceRequest = async () => {
     if (!selectedGarage || !formData.serviceType || !formData.contact) {
       toast.error("Please fill all required fields!");
@@ -82,27 +82,27 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
       {/* Mobile Toggle Buttons */}
       {isOpen && (
-        <MDBBtn 
-          floating 
-          className="mobile-close-btn" 
+        <MDBBtn
+          floating
+          className="mobile-close-btn"
           onClick={toggleSidebar}
           aria-label="Close sidebar"
         >
           <MDBIcon fas icon="times" />
         </MDBBtn>
       )}
-      
+
       {!isOpen && (
-        <MDBBtn 
-          floating 
-          className="mobile-open-btn" 
+        <MDBBtn
+          floating
+          className="mobile-open-btn"
           onClick={toggleSidebar}
           aria-label="Open sidebar"
         >
           <MDBIcon fas icon="bars" />
         </MDBBtn>
       )}
-      
+
       {/* Sidebar Header */}
       <div className="sidebar-header">
         {isOpen && <h4>Nearby Locations</h4>}
@@ -159,6 +159,14 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
                     </MDBBadge>
                   </a>
                 </MDBCardText>
+                {/* Email Address */}
+                <MDBCardText className="garage-vehicle">
+                  <a href={`mailto:${selectedGarage.email}`} style={{ textDecoration: 'none' }}>
+                    <MDBBadge color="info" className="p-2">
+                      📧{selectedGarage.email}
+                    </MDBBadge>
+                  </a>
+                </MDBCardText>
 
                 {/* Vehicle Type */}
                 <MDBCardText className="garage-vehicle">
@@ -182,7 +190,7 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
                 </MDBBtn>
 
                 {/* Close Button */}
-                <MDBBtn color="danger" className="w-100 mt-2 fw-bold" onClick={()=>{closeGarage(); toggleSidebar();}}>
+                <MDBBtn color="danger" className="w-100 mt-2 fw-bold" onClick={() => { closeGarage(); toggleSidebar(); }}>
                   <MDBIcon fas icon="times-circle" className="me-2" /> Close
                 </MDBBtn>
               </MDBCardBody>
@@ -200,7 +208,7 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
           {isOpen && "Log Out"}
         </MDBBtn>
       </div>
-      
+
       {/* Service Request Modal */}
       <MDBModal open={modalOpen} onClose={() => setModalOpen(false)} tabIndex="-1">
         <MDBModalDialog>
@@ -210,8 +218,8 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
               <MDBInput
                 label="Vehicle Type"
                 type="text"
-                value={selectedGarage?.vehicleType || "Not Available"} 
-                disabled 
+                value={selectedGarage?.vehicleType || "Not Available"}
+                disabled
                 className="mt-3"
               />
 
@@ -223,6 +231,22 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
                 onChange={val => setFormData({ ...formData, serviceType: val })}
                 placeholder="Choose Service..."
                 className="mt-3"
+                // Add these new props to configure scrolling behavior
+                maxMenuHeight={200}
+                menuPortalTarget={document.body}
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  // Ensure the dropdown menu has proper styling for scrolling
+                  menu: (base) => ({
+                    ...base,
+                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
+                    borderRadius: '8px'
+                  })
+                }}
+                // Optional: control menu position
+                menuPlacement="auto"
+                // Optional: prevent the menu from automatically scrolling to show the selected option
+                menuShouldScrollIntoView={false}
               />
 
               {/* Contact Number */}

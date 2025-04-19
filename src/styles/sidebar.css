@@ -527,3 +527,61 @@
   background-color: rgba(155, 155, 155, 0.5);
   border-radius: 20px;
 }
+/* Add these styles to your sidebar.css file */
+
+/* React-select dropdown styling */
+.css-26l3qy-menu {
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  z-index: 9999 !important;
+}
+
+/* Improve select styling in modal */
+.modal-body .css-1s2u09g-control,
+.modal-body .css-1pahdxg-control {
+  border-radius: 8px;
+  border-color: #e0e0e0;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.modal-body .css-1pahdxg-control:hover {
+  border-color: #4776ea;
+}
+
+/* Improve dropdown option styling */
+.css-26l3qy-menu .css-yt9ioa-option {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.css-26l3qy-menu .css-1n7v3ny-option {
+  background-color: rgba(71, 118, 234, 0.2);
+  color: #4776ea;
+}
+
+/* Style for no options message */
+.css-4ljt47-MenuList {
+  padding: 10px;
+  text-align: center;
+  color: #777;
+}
+
+/* Fix scrollbar in the dropdown */
+.css-26l3qy-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.css-26l3qy-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.css-26l3qy-menu::-webkit-scrollbar-thumb {
+  background: #c5d0e6;
+  border-radius: 10px;
+}
+
+.css-26l3qy-menu::-webkit-scrollbar-thumb:hover {
+  background: #4776ea;
+}

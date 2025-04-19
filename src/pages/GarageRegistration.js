@@ -47,6 +47,59 @@ const LocationMarker = ({ setLat, setLng }) => {
   return null;
 };
 
+// Fixed MapController component with improved error handling and timing
+const MapController = () => {
+  const map = useMap();
+  
+  useEffect(() => {
+    // Wait for map to be fully initialized
+    const resizeMap = () => {
+      if (map && map._container && map._container.offsetWidth > 0) {
+        try {
+          map.invalidateSize({ animate: false });
+        } catch (error) {
+          console.log("Map resize failed, will retry");
+        }
+      }
+    };
+    
+    // Series of timeouts to ensure the map has time to initialize
+    const timer1 = setTimeout(() => {
+      resizeMap();
+    }, 400);
+    
+    const timer2 = setTimeout(() => {
+      resizeMap();
+    }, 1000);
+    
+    const timer3 = setTimeout(() => {
+      resizeMap();
+    }, 2000);
+    
+    // Add resize event listener with debounce to avoid excessive calls
+    let resizeTimeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        resizeMap();
+      }, 100);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+      clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [map]);
+  
+  return null;
+};
+
 const GarageFormWithMap = () => {
   const [lat, setLat] = useState(18.55758233402414);
   const [lng, setLng] = useState(73.92808318120288);
@@ -266,26 +319,8 @@ const GarageFormWithMap = () => {
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <Marker position={[lat, lng]} icon={redIcon} />
             <LocationMarker setLat={setLat} setLng={setLng} />
-            {/* This ensures the map resizes correctly */}
-            {(() => {
-              const MapResizer = () => {
-                const map = useMapEvents({
-                  resize: () => {
-                    map.invalidateSize();
-                  }
-                });
-                
-                // Force resize when component mounts
-                useEffect(() => {
-                  setTimeout(() => {
-                    map.invalidateSize();
-                  }, 300);
-                }, [map]);
-                
-                return null;
-              };
-              return <MapResizer />;
-            })()}
+            {/* Using our improved MapController component */}
+            <MapController />
           </MapContainer>
         </div>
 
@@ -367,6 +402,17 @@ const GarageFormWithMap = () => {
               className="react-select-container"
               classNamePrefix="react-select"
               isDisabled={!formData.vehicleType}
+              maxMenuHeight={200}
+              menuPortalTarget={document.body}
+              styles={{
+                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                menu: (base) => ({
+                  ...base,
+                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
+                  borderRadius: '8px'
+                })
+              }}
+              menuPlacement="auto"
             />
             
             <div className="upload-container">
