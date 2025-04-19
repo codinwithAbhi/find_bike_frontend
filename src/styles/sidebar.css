@@ -1,25 +1,38 @@
 /* Sidebar Container */
 .sidebar {
-  background: rgb(200 109 18 / 20%);
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
   height: 100vh;
-  overflow-y: visible;
-  border-right: 1px solid #ccc;
-  transition: width 0.3s ease-in-out;
+  border-right: 1px solid #e0e0e0;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 300px; /* Default width when open */
+  width: 350px; /* Default width when open */
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Collapsed Sidebar */
 .sidebar.closed {
-  width: 80px; /* Adjust this as needed */
-  overflow: hidden;
+  width: 80px; /* Width when closed */
+  overflow-x: hidden;
+  transform: translateX(0) !important; /* Ensure it stays visible */
+  background: linear-gradient(to bottom, #f0f4ff, #f8f9fa);
 }
 
 /* Hide content when sidebar is closed */
-.sidebar.closed .sidebar-content {
+.sidebar.closed .sidebar-content,
+.sidebar.closed .sidebar-header h4 {
   display: none;
+}
+
+/* Sidebar Content */
+.sidebar-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 /* Sidebar Header */
@@ -27,42 +40,548 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
+  padding: 18px 20px;
+  border-bottom: 2px solid #f0f0f0;
+  background: white;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.sidebar-header h4 {
+  margin: 0;
+  font-weight: 600;
+  color: #3a3a3a;
+  font-size: 1.2rem;
+  position: relative;
+}
+
+.sidebar-header h4::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: rgb(72, 118, 234);
+  border-radius: 3px;
 }
 
 /* Toggle Button */
 .toggle-btn {
-  position: absolute;
+  position: absolute !important;
   top: 15px;
-  right: -20px;
-  background: rgb(72, 118, 234);
-  border-radius: 50%;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  right: -17px; /* Moved further to the right to ensure full visibility */
+  background: linear-gradient(145deg, #4776ea, #3d68d8) !important;
+  border-radius: 50% !important;
+  box-shadow: 0px 4px 10px rgba(72, 118, 234, 0.3) !important;
   cursor: pointer;
   z-index: 1000;
-  width: 40px;
-  height: 40px;
+  width: 42px !important;
+  height: 42px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  transform: translateX(0) !important; /* Ensure button stays in position */
+  transition: all 0.3s ease !important;
+}
+
+.toggle-btn:hover {
+  transform: translateX(0) scale(1.05) !important;
+  box-shadow: 0px 6px 15px rgba(72, 118, 234, 0.4) !important;
+}
+
+/* Mobile Toggle Buttons */
+.mobile-close-btn,
+.mobile-open-btn {
+  display: none !important;
+  width: 42px !important;
+  height: 42px !important;
+  background: linear-gradient(145deg, #4776ea, #3d68d8) !important;
+  border-radius: 50% !important;
+  box-shadow: 0px 4px 10px rgba(72, 118, 234, 0.3) !important;
+  transition: all 0.3s ease !important;
+  z-index: 2000 !important;
+}
+
+/* Garage Card Styling */
+.garage-card {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+  border: none;
+  background: white;
+}
+
+.garage-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.garage-image {
+  height: 190px;
+  object-fit: cover;
+  position: relative;
+}
+
+.garage-card .card-body {
+  padding: 18px;
+}
+
+.garage-title {
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.garage-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 3px;
+  background: #4776ea;
+  border-radius: 3px;
+}
+
+.garage-address {
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+  color: #555;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+}
+
+.garage-address .text-danger {
+  margin-top: 2px;
+}
+
+.garage-vehicle {
+  margin-bottom: 0.7rem;
+}
+
+.garage-vehicle .badge {
+  font-weight: 500;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  padding: 6px 12px !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.garage-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.2rem;
+}
+
+.garage-services .badge {
+  transition: all 0.2s ease;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 6px 10px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.garage-services .badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-text {
+  text-align: center;
+  padding: 30px 20px;
+  color: #777;
+  font-style: italic;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.03);
+}
+
+/* Button Styles */
+.garage-card .btn {
+  border-radius: 8px;
+  padding: 8px 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.garage-card .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.garage-card .btn-primary {
+  background: linear-gradient(145deg, #4776ea, #3d68d8);
+  border: none;
+}
+
+.garage-card .btn-danger {
+  background: linear-gradient(145deg, #ff5151, #e74c3c);
+  border: none;
 }
 
 /* Sidebar Footer - Always Visible */
 .sidebar-footer {
-  position: absolute;
-  bottom: 20px;
-  left: 10px;
-  right: 10px;
-  padding: 10px;
+  padding: 15px 20px;
   background: white;
-  border-top: 1px solid #ddd;
-  text-align: center;
+  border-top: 1px solid #eee;
+  margin-top: auto;
 }
 
-/* Show only the logout button when collapsed */
+.sidebar-footer .btn {
+  border-radius: 8px;
+  padding: 9px 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-footer .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Show only the logout icon when collapsed */
 .sidebar.closed .sidebar-footer {
+  padding: 15px 0;
   display: flex;
   justify-content: center;
+}
+
+.sidebar.closed .sidebar-footer .btn {
+  width: 45px !important;
+  height: 45px;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* Modal Styles */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.modal-header {
+  background: linear-gradient(145deg, #4776ea, #3d68d8);
+  color: white;
+  border-bottom: none;
+  padding: 15px 20px;
+}
+
+.modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 15px 20px;
+}
+
+.modal-footer .btn {
+  border-radius: 8px;
+  padding: 9px 20px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    transform: translateX(0);
+    background: linear-gradient(to bottom right, #f8f9fa, #ffffff);
+  }
+  
+  .sidebar.closed {
+    transform: translateX(-100%) !important;
+    width: 100%;
+  }
+  
+  .toggle-btn {
+    display: none !important; /* Hide the toggle button on mobile */
+  }
+  
+  /* Show mobile toggle buttons on mobile */
+  .mobile-close-btn {
+    display: flex !important;
+    position: fixed !important;
+    top: 15px;
+    right: 15px;
+  }
+  
+  .mobile-open-btn {
+    display: flex !important;
+    position: fixed !important;
+    top: 15px;
+    left: 15px;
+  }
+  
+  /* Adjust garage card for better mobile viewing */
+  .garage-card {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .garage-image {
+    height: 160px;
+  }
+  
+  /* Make the services badges stack better on small screens */
+  .garage-services {
+    gap: 5px;
+  }
+  
+  /* Service Request Modal adjustments for mobile */
+  .modal-dialog {
+    margin: 1rem auto !important;
+    max-width: 90% !important;
+  }
+  
+  .modal-content {
+    border-radius: 10px;
+  }
+  
+  /* Add a subtle entrance animation for mobile sidebar */
+  @keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+  
+  .sidebar:not(.closed) {
+    animation: slideIn 0.3s forwards;
+  }
+}
+
+/* Tablet Adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar {
+    width: 300px;
+  }
+  
+  .sidebar.closed {
+    width: 70px;
+  }
+}
+
+/* Landscape Mode Adjustments for Mobile */
+@media (max-height: 500px) and (max-width: 768px) {
+  .sidebar {
+    overflow-y: auto;
+  }
+  
+  .garage-image {
+    height: 110px;
+  }
+  
+  .sidebar-footer {
+    position: relative;
+  }
+  
+  .garage-card {
+    margin-bottom: 15px;
+  }
+  
+  .garage-card .card-body {
+    padding: 12px;
+  }
+  
+  /* Adjust position of mobile toggle buttons in landscape */
+  .mobile-close-btn,
+  .mobile-open-btn {
+    top: 10px;
+  }
+}
+
+/* Custom Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #c5d0e6;
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #4776ea;
+}
+
+
+/* Add these styles to your sidebar.css file */
+
+/* Carousel styling */
+.garage-carousel-image {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: calc(0.5rem - 1px);
+  border-top-right-radius: calc(0.5rem - 1px);
+}
+
+/* For mobile devices - smaller image height */
+@media (max-width: 768px) {
+  .garage-carousel-image {
+    height: 180px;
+  }
+}
+
+/* Controls for carousel */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 10%;
+  opacity: 0.8;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+/* Make navigation icons more visible */
+/* .carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 10px;
+  background-size: 50%;
+  width: 30px;
+  height: 30px;
+} */
+
+/* Ensure icons are white and clearly visible */
+.carousel-dark .carousel-control-prev-icon,
+.carousel-dark .carousel-control-next-icon {
+  filter: invert(1) grayscale(100) brightness(200);
+}
+
+/* Fallback when no images are available */
+.no-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border-top-left-radius: calc(0.5rem - 1px);
+  border-top-right-radius: calc(0.5rem - 1px);
+}
+
+.no-image-container p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* Badge styling refinements for services */
+.garage-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.garage-services .badge {
+  margin-bottom: 5px;
+  font-size: 0.7rem;
+}
+
+/* Animation for carousel transitions */
+.carousel-fade .carousel-item {
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* Improve sidebar scrolling for many images or services */
+.sidebar-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+}
+/* Add these styles to your sidebar.css file */
+
+/* React-select dropdown styling */
+.css-26l3qy-menu {
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+  z-index: 9999 !important;
+}
+
+/* Improve select styling in modal */
+.modal-body .css-1s2u09g-control,
+.modal-body .css-1pahdxg-control {
+  border-radius: 8px;
+  border-color: #e0e0e0;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+
+.modal-body .css-1pahdxg-control:hover {
+  border-color: #4776ea;
+}
+
+/* Improve dropdown option styling */
+.css-26l3qy-menu .css-yt9ioa-option {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.css-26l3qy-menu .css-1n7v3ny-option {
+  background-color: rgba(71, 118, 234, 0.2);
+  color: #4776ea;
+}
+
+/* Style for no options message */
+.css-4ljt47-MenuList {
+  padding: 10px;
+  text-align: center;
+  color: #777;
+}
+
+/* Fix scrollbar in the dropdown */
+.css-26l3qy-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.css-26l3qy-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.css-26l3qy-menu::-webkit-scrollbar-thumb {
+  background: #c5d0e6;
+  border-radius: 10px;
+}
+
+.css-26l3qy-menu::-webkit-scrollbar-thumb:hover {
+  background: #4776ea;
 }

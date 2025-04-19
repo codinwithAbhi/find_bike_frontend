@@ -98,7 +98,7 @@ export default function GarageDashboard() {
       <MDBContainer className="dashboard-container">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
           <MDBRow>
-            {/* ✅ User Info Card */}
+            {/* ✅ User Info Card with Logout Button */}
             <MDBCol md="3">
               <MDBCard className="user-card">
                 <MDBCardBody>
@@ -110,6 +110,9 @@ export default function GarageDashboard() {
                     🛠️ <strong>Service Type:</strong> {user?.serviceType} <br />
                     🚗 <strong>Vehicle Type:</strong> {user?.vehicleType}
                   </MDBCardText>
+                  <div className="logout-wrapper">
+                    <MDBBtn className="logout-button" onClick={Logout}>Logout</MDBBtn>
+                  </div>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
@@ -134,7 +137,7 @@ export default function GarageDashboard() {
                 </MDBTabsItem>
                 <MDBTabsItem>
                   <MDBTabsLink onClick={() => setActiveTab("completed")} active={activeTab === "completed"}>
-                    ✅ Accepted Requests
+                    ✅ Completed Requests
                   </MDBTabsLink>
                 </MDBTabsItem>
               </MDBTabs>
@@ -151,7 +154,7 @@ export default function GarageDashboard() {
                             {getPaginatedData(pendingRequests, "pending").map((req) => (
                               <MDBListGroupItem key={req._id} className="request-item">
                                 <strong>👤 Customer:</strong> {req.userId.name} <br />
-                                <strong>📞 Contact:</strong> {req?.contact} <br />
+                                <strong>📞 Contact:</strong> <a href={`tel:${req?.contact}`} style={{ textDecoration: 'none' }}>{req?.contact}</a> <br />
                                 <strong>🔧 Service:</strong> {req.serviceType} <br />
                                 <strong>📌 Message:</strong> {req.message} <br />
                                 <strong>📌 Status:</strong> <span className="status pending">Pending</span>
@@ -162,11 +165,13 @@ export default function GarageDashboard() {
                               </MDBListGroupItem>
                             ))}
                           </MDBListGroup>
-                          <Pagination
-                            totalItems={pendingRequests.length}
-                            currentPage={currentPage.pending}
-                            onPageChange={(newPage) => handlePageChange("pending", newPage)}
-                          />
+                          <div className="pagination-wrapper">
+                            <Pagination
+                              totalItems={pendingRequests.length}
+                              currentPage={currentPage.pending}
+                              onPageChange={(newPage) => handlePageChange("pending", newPage)}
+                            />
+                          </div>
                         </>
                       ) : (
                         <p>No pending requests.</p>
@@ -175,7 +180,7 @@ export default function GarageDashboard() {
                   </MDBCard>
                 </MDBTabsPane>
 
-                {/* 🟢 Completed Requests Tab */}
+                {/* 🟢 Accepted Requests Tab */}
                 <MDBTabsPane open={activeTab === "accepted"}>
                   <MDBCard className="info-card">
                     <MDBCardBody>
@@ -186,7 +191,7 @@ export default function GarageDashboard() {
                             {getPaginatedData(acceptedRequests, "accepted").map((req) => (
                               <MDBListGroupItem key={req._id} className="request-item">
                                 <strong>👤 Customer:</strong> {req.userId.name} <br />
-                                <strong>📞 Contact:</strong> {req?.contact} <br />
+                                <strong>📞 Contact:</strong> <a href={`tel:${req?.contact}`} style={{ textDecoration: 'none' }}>{req?.contact}</a> <br />
                                 <strong>🔧 Service:</strong> {req.serviceType} <br />
                                 <strong>📌 Message:</strong> {req.message} <br />
                                 <strong>📌 Status:</strong> <span className="status completed">Accepted</span>
@@ -196,20 +201,22 @@ export default function GarageDashboard() {
                               </MDBListGroupItem>
                             ))}
                           </MDBListGroup>
-                          <Pagination
-                            totalItems={acceptedRequests.length}
-                            currentPage={currentPage.accepted}
-                            onPageChange={(newPage) => handlePageChange("accepted", newPage)}
-                          />
+                          <div className="pagination-wrapper">
+                            <Pagination
+                              totalItems={acceptedRequests.length}
+                              currentPage={currentPage.accepted}
+                              onPageChange={(newPage) => handlePageChange("accepted", newPage)}
+                            />
+                          </div>
                         </>
                       ) : (
-                        <p>No completed requests.</p>
+                        <p>No accepted requests.</p>
                       )}
                     </MDBCardBody>
                   </MDBCard>
                 </MDBTabsPane>
 
-                {/* ❌ Completed Requests Tab */}
+                {/* ❌ Rejected Requests Tab */}
                 <MDBTabsPane open={activeTab === "rejected"}>
                   <MDBCard className="info-card">
                     <MDBCardBody>
@@ -220,18 +227,20 @@ export default function GarageDashboard() {
                             {getPaginatedData(rejectedRequests, "rejected").map((req) => (
                               <MDBListGroupItem key={req._id} className="request-item">
                                 <strong>👤 Customer:</strong> {req.userId.name} <br />
-                                <strong>📞 Contact:</strong> {req?.contact} <br />
+                                <strong>📞 Contact:</strong> <a href={`tel:${req?.contact}`} style={{ textDecoration: 'none' }}>{req?.contact}</a> <br />
                                 <strong>🔧 Service:</strong> {req.serviceType} <br />
                                 <strong>📌 Message:</strong> {req.message} <br />
                                 <strong>📌 Status:</strong> <span className="status rejected">Rejected</span>
                               </MDBListGroupItem>
                             ))}
                           </MDBListGroup>
-                          <Pagination
-                            totalItems={rejectedRequests.length}
-                            currentPage={currentPage.rejected}
-                            onPageChange={(newPage) => handlePageChange("rejected", newPage)}
-                          />
+                          <div className="pagination-wrapper">
+                            <Pagination
+                              totalItems={rejectedRequests.length}
+                              currentPage={currentPage.rejected}
+                              onPageChange={(newPage) => handlePageChange("rejected", newPage)}
+                            />
+                          </div>
                         </>
                       ) : (
                         <p>No rejected requests.</p>
@@ -239,6 +248,8 @@ export default function GarageDashboard() {
                     </MDBCardBody>
                   </MDBCard>
                 </MDBTabsPane>
+
+                {/* ✅ Completed Requests Tab */}
                 <MDBTabsPane open={activeTab === "completed"}>
                   <MDBCard className="info-card">
                     <MDBCardBody>
@@ -249,21 +260,23 @@ export default function GarageDashboard() {
                             {getPaginatedData(completedRequests, "completed").map((req) => (
                               <MDBListGroupItem key={req._id} className="request-item">
                                 <strong>👤 Customer:</strong> {req.userId.name} <br />
-                                <strong>📞 Contact:</strong> {req?.contact} <br />
+                                <strong>📞 Contact:</strong> <a href={`tel:${req?.contact}`} style={{ textDecoration: 'none' }}>{req?.contact}</a> <br />
                                 <strong>🔧 Service:</strong> {req.serviceType} <br />
                                 <strong>📌 Message:</strong> {req.message} <br />
                                 <strong>📌 Status:</strong> <span className="status completed">Completed</span>
                               </MDBListGroupItem>
                             ))}
                           </MDBListGroup>
-                          <Pagination
-                            totalItems={completedRequests.length}
-                            currentPage={currentPage.completed}
-                            onPageChange={(newPage) => handlePageChange("completed", newPage)}
-                          />
+                          <div className="pagination-wrapper">
+                            <Pagination
+                              totalItems={completedRequests.length}
+                              currentPage={currentPage.completed}
+                              onPageChange={(newPage) => handlePageChange("completed", newPage)}
+                            />
+                          </div>
                         </>
                       ) : (
-                        <p>No rejected requests.</p>
+                        <p>No completed requests.</p>
                       )}
                     </MDBCardBody>
                   </MDBCard>
@@ -273,10 +286,6 @@ export default function GarageDashboard() {
           </MDBRow>
         </motion.div>
       </MDBContainer>
-      <div className="container">
-        <MDBBtn className="logout-button" onClick={Logout}>Logout</MDBBtn>
-      </div>
-
     </>
   );
 }
