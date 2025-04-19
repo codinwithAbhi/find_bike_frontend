@@ -1,37 +1,217 @@
-/* Ensure the root container covers the entire screen */
+/* Home.css - Responsive styles for the map and sidebar */
 
-/* Main Layout - Sidebar + Map */
+/* Main Layout Container */
 .home-container {
-  display: flex;              /* Side-by-side layout */
-  height: 100vh;              /* Full viewport height */
-  width: 100vw;               /* Full viewport width */
-  overflow: hidden;           /* Hide extra content */
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
   transition: all 0.3s ease-in-out;
-}
-
-/* Leaflet Map Fullscreen */
-.leaflet-map {
-  height: 100% !important;    /* Force full height */
-  width: 100% !important;     /* Full width */
-  z-index: 1;
-}
-
-
-/* Sidebar Open */
-.sidebar-open .sidebar {
-  width: 350px;               /* Sidebar expanded */
-}
-
-/* Sidebar Closed */
-.sidebar-closed .sidebar {
-  width: 50px;                /* Collapsed sidebar */
 }
 
 /* Map Container */
 .map-container {
-  flex: 1;                    /* Take up remaining space */
-  height: 100%;               /* Full height */
-  display: flex;              /* Ensure children (Leaflet) stretch */
-  background-color: #f0f0f0;  /* Just for better contrast */
-  position: relative;         /* Needed for absolute positioning if needed */
+  flex: 1;
+  height: 100%;
+  position: relative;
+  background-color: #f0f0f0;
+  z-index: 1;
+}
+
+/* Leaflet Map Styles */
+.leaflet-map {
+  height: 100% !important;
+  width: 100% !important;
+  z-index: 1;
+}
+
+/* Sidebar Toggle States */
+.sidebar-open .sidebar {
+  transform: translateX(0);
+  width: 350px;
+}
+
+.sidebar-closed .sidebar {
+  transform: translateX(-300px);
+  width: 350px;
+}
+
+/* Sidebar Component */
+.sidebar {
+  height: 100%;
+  background-color: white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  transition: all 0.3s ease-in-out;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+  position: absolute;
+  right: -20px;
+  top: 20px;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 11;
+}
+
+/* Mobile Sidebar Toggle Button */
+.mobile-sidebar-toggle {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Mobile Map Controls */
+.map-mobile-controls {
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.locate-me-btn {
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Garage Card Styles */
+.garage-card {
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.garage-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.selected-garage {
+  border: 2px solid #4285F4;
+}
+
+/* Loading Container */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
+}
+
+/* Error Container */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+}
+
+/* Marker Popup Styles */
+.leaflet-popup-content {
+  margin: 10px;
+  min-width: 200px;
+}
+
+.garage-popup-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.garage-popup-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.garage-popup-button {
+  margin-top: 10px;
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .sidebar-open .sidebar {
+    width: 100%;
+    transform: translateX(0);
+  }
+  
+  .sidebar-closed .sidebar {
+    transform: translateX(-100%);
+    width: 100%;
+  }
+  
+  .mobile-sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sidebar-toggle {
+    display: none;
+  }
+  
+  /* Use full screen for map on mobile */
+  .home-container {
+    flex-direction: column;
+  }
+}
+
+/* Tablet Adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sidebar-open .sidebar {
+    width: 300px;
+  }
+  
+  .sidebar-closed .sidebar {
+    transform: translateX(-250px);
+    width: 300px;
+  }
 }
