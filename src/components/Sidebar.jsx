@@ -126,7 +126,7 @@ const Sidebar = ({ isOpen, toggleSidebar, selectedGarage, closeGarage }) => {
                       itemId={index + 1}
                     >
                       <img
-                        src={`http://localhost:10113${image}`}
+                        src={`https://find-bike-backend.onrender.com${image}`}
                         className="d-block w-100 garage-carousel-image"
                         alt={`${selectedGarage.garageName} - Image ${index + 1}`}
                       />
