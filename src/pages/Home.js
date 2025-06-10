@@ -178,6 +178,7 @@ export default function Home() {
             setSidebarOpen={setSidebarOpen}
             setSelectedGarage={handleGarageSelection}
             selectedGarage={selectedGarage}
+            selectedGarageDistance={selectedGarageDistance}
           />
         )}
         
