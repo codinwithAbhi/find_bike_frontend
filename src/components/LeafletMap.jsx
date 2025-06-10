@@ -83,7 +83,7 @@ const MapComponent = ({ center, userLocation, zoom = 13, setSidebarOpen, markers
           <Popup>
             {garage.garageName} <br />
             📍 Distance: {selectedGarage && selectedMarkerId === garage._id ? (
-              <span>{selectedGarageDistance} meters</span>
+              <span>{selectedGarageDistance}</span>
             ) : "Click to calculate"}
           </Popup>
         </Marker>
