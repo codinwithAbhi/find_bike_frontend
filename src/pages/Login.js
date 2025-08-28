@@ -54,6 +54,9 @@ function Login() {
         localStorage.setItem(tokenKey, JSON.stringify(decoded));
         setAuth(true);
         navigate(homePath);
+      } else {
+        toast.error("Login failed. Please check your credentials.");
+        setAuth(false);
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Invalid credentials. Please try again.");
